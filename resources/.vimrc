@@ -104,9 +104,6 @@ let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 "some specific snippet settings for c
-let g:clang_snippets = 1
-let g:clang_snippets_engine = 'clang_complete'
-let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 let g:acp_mappingDriven = 1
 " If you dont like the Nerdtree plugin and wish to use vim's original
 " Ex tree, comment out the nerdtree remaps and uncomment the following remap:
