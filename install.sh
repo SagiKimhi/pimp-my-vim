@@ -19,6 +19,9 @@ alias colorTextMagneta tput setaf 5
 alias colorTextCyan tput setaf 6
 alias colorTextWhite tput setaf 7
 alias colorTextDefault tput setaf 9
+alias setDimText tput dim
+alias setTextUnderscore tput smul
+alias unsetTextAttributes tput sgr0
 
 # Package handling aliases:
 alias getPackageSize apt-cache --no-all-versions show 
@@ -120,7 +123,7 @@ if ( ${result} ) then
     foreach file ( ${dependencyList} )
         if ( -e ${home}/${file} ) then
             echo "Backing up old ${file} into ${home}/pimp-my-vim-old-vim/"
-            mv -f ${home}/${file} ${home}/pimp-my-vim-old-vim/
+            mv -n ${home}/${file} ${home}/pimp-my-vim-old-vim/
         endif
         echo -n "Copying ${file} to ${home}/... "
         cp -r ${dependencyDir}/${file} ${home}/
@@ -131,8 +134,13 @@ if ( ${result} ) then
     ( vim ${home}/.vimrc +w +'so %' +PlugInstall +qall >& InstallationLog.txt && vim ${home}/.vimrc +PlugInstall +'so %' +qall >& InstallationLog.txt )
     echo "Done.\n"
     echo "`colorTextGreen`Installation finished successfuly.\n"
-    echo "Please open up your vim and make sure no errors appear."
-    echo "If any errors appear, comment out the problemetic plugins from within the .vimrc file in your home folder\n"
+    setDimText && setTextUnderscore && colorTextYellow
+    echo "Please open up your vim editor and make sure no errors appear."
+    echo -n "If any errors appear, comment out the problemetic plugins from within the .vimrc "
+    echo "file in your home folder."
+    echo -n "If the problem continues, uninstall this vim upgrade and report the problem "
+    echo "in our github issues section.\n"
+    unsetTextAttributes
 endif
 echo "`colorTextMagneta`Press ENTER to exit...`colorTextDefault`"
 set temp = $<

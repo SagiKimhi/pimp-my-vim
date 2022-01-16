@@ -45,14 +45,14 @@ endif
 if ( ${result} ) then
     echo "Restoring files..."
     foreach file ( ${dependencyList} )
+        rm -rf ${home}/${file}
         if ( -e ${dependencyDir}/${file} ) then
             echo -n "Restoring old version of ${file}... "
             mv -f ${dependencyDir}/${file} ${home}/
             echo "Done."
-        else
-            rm -rf ${home}/${file}
         endif
     end
+    rmdir ${dependencyDir}
     echo "`colorTextGreen`All files have been restored successfuly.\n"
 endif
 
