@@ -4,38 +4,53 @@ A simple vim upgrade including various settings, a plugin manager, plugins, and 
 
 
 Installation
-------------
+---------------
 
-<h3>The tcsh shell is required for this installation script</h3>
+- ### Requirements
 
-you can get the tcsh shell by simply running `sudo apt-get install tcsh`
+    <h3>The tcsh shell is required for this installation script</h3>
 
-And you can then switch to the tcsh shell by running the commands:
-```
-chsh
-/bin/tcsh
-```
+    you can get the tcsh shell by simply running `sudo apt-get install tcsh`
 
-And then simply log out and back in to your system for the action to take place.
+    And you can then switch to the tcsh shell by running the commands:
+    ```
+    chsh
+    /bin/tcsh
+    ```
 
-To run the pimp-my-vim installation, close this directory to your computer,
+    And then simply log out and back in to your system for the action to take place.
 
-open it in your terminal, and run the following commands:
+</br>
 
-```
+--------------
+
+</br>
+
+- ### Pimp-my-vim
+
+    To run the pimp-my-vim installation, close this directory to your computer,
+
+    open it in your terminal, and run the following commands:
+
+    ```
     chmod +x install.sh
     ./install.sh
-``` 
-The installer will also back up you previous .vim, .vimrc, and other dotfiles if such exist into its own backup directory under
-your home directory
+    ``` 
+    The installer will also back up you previous .vim, .vimrc, and other dotfiles if such exist into its own backup directory under
+    your home directory
 
-<img src="https://github.com/SagiKimhi/media/blob/main/pimp-my-vim/pimp-my-vim-installation.gif" height="600" width="850">
+    <img src="https://github.com/SagiKimhi/media/blob/main/pimp-my-vim/pimp-my-vim-installation.gif" height="600" width="850">
+    
+    
+    
+    You can also uninstall this vim upgrade at any point by simply running:
 
-
-** You can also uninstall this vim upgrade at any point by simply running:
-
+    ```
     chmod +x uninstall.sh
     ./uninstall.sh
+    ```
+
+</br></br>
 
 
 Quick partial feature summary
@@ -70,7 +85,7 @@ File browsing tree
 ---------------
 Using nerdtree plugin:
 
-<img src="https://github.com/SagiKimhi/media/blob/main/pimp-my-vim/pimp-my-vim-file-browsing.gif" height="450" width="800">
+<img src="https://github.com/SagiKimhi/media/blob/main/pimp-my-vim/pimp-my-vim-file-browsing.gif" height="500" width="850">
 
 
 Undo tree
