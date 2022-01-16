@@ -19,6 +19,12 @@ alias colorTextMagneta tput setaf 5
 alias colorTextCyan tput setaf 6
 alias colorTextWhite tput setaf 7
 alias colorTextDefault tput setaf 9
+alias setDimText tput dim
+alias setBrightText tput bold
+alias highlightText tput smso
+alias setTextUnderscore tput smul
+alias unsetTextUnderscore tput rmul
+alias unsetTextAttributes tput sgr0
 
 # Package handling aliases:
 alias getPackageSize apt-cache --no-all-versions show 
@@ -89,7 +95,7 @@ foreach i ( `seq 1 ${#dependencyList}` )
                 echo -n "\rPackage ${dependencyList[$i]} was installed successfuly.`clearLineFromCurrentCursorPos`\n"
             endif
         else
-            echo "Aborting installation..."
+            echo "`colorTextRed`Aborting installation..."
             @ result = 0
             break
         endif
@@ -115,25 +121,53 @@ if ( ${result} ) then
     colorTextWhite
     set dependencyDir = "`pwd`/resources"
     set dependencyList = "`( cd ${dependencyDir} ; ls -A )`"
-    mkdir -p ${home}/pimp-my-vim-old-vim/
+    set backupDir = "${home}/pimp-my-vim-old-vim"
+    if ( -d ${backupDir} ) then
+        echo "An older pimp-my-vim backup directory was found."
+        echo -n "do you wish to overwrite the old backup files with your current "
+        echo -n "vim files? (y/n): "
+        set temp = $<
+        if ( "${temp}" == "y" || "${temp}" == "Y" ) then
+            @ usrAnswr = 1
+        else
+            if ( "${temp}" != "n" && "${temp}" != "N" ) then
+                colorTextRed
+                echo -n "I'll take that as a no... "
+                echo "`setTextUnderscore`(sleeping for 5 seconds, hit ctrl-C to abort!)"
+
+                unsetTextAttributes && colorTextWhite
+                sleep 5
+            endif
+            @ usrAnswr = 0
+        endif
+    else
+        mkdir ${backupDir}
+    endif
     echo "Copying essential files..."
     foreach file ( ${dependencyList} )
-        if ( -e ${home}/${file} ) then
-            echo "Backing up old ${file} into ${home}/pimp-my-vim-old-vim/"
-            mv -f ${home}/${file} ${home}/pimp-my-vim-old-vim/
+        if ( ${usrAnswr} == 1 && -e ${home}/${file} ) then
+            rm -rf ${backupDir}/${file}
+            echo "Backing up old ${file} into ${backupDir}"
+            mv -f ${home}/${file} ${backupDir}
         endif
         echo -n "Copying ${file} to ${home}/... "
-        cp -r ${dependencyDir}/${file} ${home}/
+        cp -r -f ${dependencyDir}/${file} ${home}/
         echo "Done."
     end
     echo "`colorTextGreen`All files copied successfuly.\n`colorTextWhite`"
     echo -n "Updating vimrc and vim plugins (this may take 20-40 seconds)... "
     ( vim ${home}/.vimrc +w +'so %' +PlugInstall +qall >& InstallationLog.txt && vim ${home}/.vimrc +PlugInstall +'so %' +qall >& InstallationLog.txt )
     echo "Done.\n"
-    echo "`colorTextGreen`Installation finished successfuly.\n"
-    echo "Please open up your vim and make sure no errors appear."
-    echo "If any errors appear, comment out the problemetic plugins from within the .vimrc file in your home folder\n"
+    setDimText && colorTextYellow
+    echo "* Please open up your vim editor and make sure no errors appear."
+    echo -n "  If any errors appear, comment out the problemetic plugins from within the .vimrc "
+    echo "file in your home folder."
+    echo -n "  If the problem continues, uninstall this vim upgrade and report the problem "
+    echo "in our github issues section.\n"
+    unsetTextAttributes && setBrightText && colorTextGreen && setTextUnderscore
+    echo "Installation finished successfuly.\n"
 endif
+unsetTextAttributes
 echo "`colorTextMagneta`Press ENTER to exit...`colorTextDefault`"
 set temp = $<
 restoreScreen
