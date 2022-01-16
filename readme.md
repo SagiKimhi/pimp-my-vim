@@ -28,7 +28,7 @@ Installation
 
 - ### Pimp-my-vim
 
-    To run the pimp-my-vim installation, close this directory to your computer,
+    To run the pimp-my-vim installation, clone this directory to your computer with `git clone` ,
 
     open it in your terminal, and run the following commands:
 
