@@ -122,6 +122,7 @@ if ( ${result} ) then
     set dependencyDir = "`pwd`/resources"
     set dependencyList = "`( cd ${dependencyDir} ; ls -A )`"
     set backupDir = "${home}/pimp-my-vim-old-vim"
+    @ usrAnswr = 0
     if ( -d ${backupDir} ) then
         echo "An older pimp-my-vim backup directory was found."
         echo -n "do you wish to overwrite the old backup files with your current "
@@ -134,7 +135,6 @@ if ( ${result} ) then
                 colorTextRed
                 echo -n "I'll take that as a no... "
                 echo "`setTextUnderscore`(sleeping for 5 seconds, hit ctrl-C to abort!)"
-
                 unsetTextAttributes && colorTextWhite
                 sleep 5
             endif
