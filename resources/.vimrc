@@ -25,13 +25,12 @@ set incsearch
 set path+=**
 set complete+=kspell
 set completeopt=menuone,longest
-set backspace=3
 set textwidth=0
 set mouse=a
 set showcmd
 set cursorline
 set scrolloff=6
-set signcolumn=yes
+"set signcolumn=yes
 set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgray
 " defines which tag files vim should use for autocompletion
